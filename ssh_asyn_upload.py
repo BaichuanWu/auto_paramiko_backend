@@ -64,7 +64,6 @@ class FileHandler(object):
         for f in files:
             filename = remote_dir + '/' + f.filename
             if stat.S_ISDIR(f.st_mode):
-                log.debug('opening % s' % filename)
                 for i in self.get_file_list(filename):
                     yield i
             else:
@@ -80,7 +79,7 @@ class FileHandler(object):
             except Queue.Empty:
                 log.warn('No sftp is available')
                 break
-            thr = threading.Thread(target=self.get_one, args=(sftp_helper,i))
+            thr = threading.Thread(target=self.get_one, args=(sftp_helper, i))
             threads.append(thr)
             thr.start()
             if len(threads) > 10:

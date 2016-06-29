@@ -47,7 +47,6 @@ class FileHandler(object):
     def get_one(self, sftp_helper, remote_file):
         pat = re.compile(self.remote_dir)
         local_file = pat.sub(self.local_dir, remote_file)
-        print local_file
         local_dir = os.path.dirname(local_file)
         if not os.path.exists(local_dir):
             try:

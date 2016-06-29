@@ -57,6 +57,10 @@ class FileHandler(object):
         log.info('Download %s successfully' % local_file)
         sftp_helper.sftp.remove(remote_file)
         log.info('remove %s successfully' % remote_file)
+        remote_dir = os.path.dirname(remote_file)
+        if not sftp_helper.sftp.listdir(remote_dir):
+            sftp_helper.sftp.rmdir(remote_dir)
+            log.info('remove - delete empty dir %s' % remote_dir)
         self._queue.put(sftp_helper, timeout=1)
 
     def get_file_list(self, remote_dir):

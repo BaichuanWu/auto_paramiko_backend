@@ -94,7 +94,9 @@ class FileHandler(object):
                 sftp_helper = self._queue.get(timeout=20)
             except Queue.Empty:
                 log.warn('No sftp is available')
-                break
+                for j in range(10):
+                    self._queue.put(SftpHelper(self.host, self.username, self.passwd))
+                log.info('add new sftp')
             thr = threading.Thread(target=self.get_one, args=(sftp_helper, i))
             threads.append(thr)
             thr.start()

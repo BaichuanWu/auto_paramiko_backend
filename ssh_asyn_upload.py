@@ -50,7 +50,7 @@ class FileHandler(object):
             sftp_helper.sftp.rmdir(filename)
             log.info('remove - delete empty dir %s' % filename)
             filename = os.path.dirname(filename)
-            FileHandler.delete_all(filename)
+            FileHandler.delete_all(sftp_helper ,filename)
 
     def get_one(self, sftp_helper, remote_file):
         pat = re.compile(self.remote_dir)

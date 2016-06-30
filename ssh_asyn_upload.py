@@ -66,7 +66,10 @@ class FileHandler(object):
         sftp_helper.sftp.remove(remote_file)
         log.info('remove %s successfully' % remote_file)
         remote_dir = os.path.dirname(remote_file)
-        FileHandler.delete_all(sftp_helper, remote_dir)
+        try:
+            FileHandler.delete_all(sftp_helper, remote_dir)
+        except Exception as e:
+            pass
         self._queue.put(sftp_helper, timeout=1)
 
     def get_file_list(self, remote_dir):

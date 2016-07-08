@@ -74,6 +74,7 @@ class FileHandler(object):
         self._queue.put(sftp_helper, timeout=1)
 
     def get_file_list(self, remote_dir):
+        log.debug('now start get list')
         files = self.sftp.listdir_attr(remote_dir)
         if not files:
             self.sftp.rmdir(remote_dir)
@@ -89,10 +90,12 @@ class FileHandler(object):
 
     def downloader_async(self, remote_dir):
         threads = []
-        for i in range(20):
+        for i in range(10):
             log.debug('-------connecting %s' % i)
             self._queue.put(SftpHelper(self.host, self.username, self.passwd))
+        log.debug('stop connect')
         for i in self.get_file_list(remote_dir):
+            log.debug('%%%%')
             try:
                 sftp_helper = self._queue.get(timeout=1)
                 log.debug('------get %s' % i)

@@ -61,6 +61,7 @@ class FileHandler(object):
                 os.makedirs(local_dir)
             except OSError:
                 pass
+        log.debug('Start download %s -------' % remote_file)
         sftp_helper.sftp.get(remote_file, local_file)
         log.info('Download %s successfully' % local_file)
         sftp_helper.sftp.remove(remote_file)
@@ -79,6 +80,7 @@ class FileHandler(object):
             log.info('delete empty dir %s' % remote_dir)
         for f in files:
             filename = remote_dir + '/' + f.filename
+            log.debug('now search %s' % filename)
             if stat.S_ISDIR(f.st_mode):
                 for i in self.get_file_list(filename):
                     yield i

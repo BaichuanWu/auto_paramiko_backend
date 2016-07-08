@@ -66,11 +66,11 @@ class FileHandler(object):
         log.info('Download %s successfully' % local_file)
         sftp_helper.sftp.remove(remote_file)
         log.info('remove %s successfully' % remote_file)
-        # remote_dir = os.path.dirname(remote_file)
-        # try:
-        #     FileHandler.delete_all(sftp_helper, remote_dir)
-        # except Exception as e:
-        #     pass
+        remote_dir = os.path.dirname(remote_file)
+        try:
+            FileHandler.delete_all(sftp_helper, remote_dir)
+        except Exception as e:
+            pass
         self._queue.put(sftp_helper, timeout=1)
 
     def get_file_list(self, remote_dir):
@@ -87,7 +87,7 @@ class FileHandler(object):
 
     def downloader_async(self, remote_dir):
         threads = []
-        for i in range(20):
+        for i in range(10):
             log.debug('-------connecting %s' % i)
             self._queue.put(SftpHelper(self.host, self.username, self.passwd))
         log.debug('stop connect')
@@ -103,7 +103,7 @@ class FileHandler(object):
             thr = threading.Thread(target=self.get_one, args=(sftp_helper, i))
             threads.append(thr)
             thr.start()
-            if len(threads) > 20:
+            if len(threads) > 10:
                 for t in threads:
                     t.join()
                 threads = []

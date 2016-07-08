@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2d76864c-6cf8-4ebd-ad23-ba9ea2823063" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ssh_asyn_upload.py" afterPath="$PROJECT_DIR$/ssh_asyn_upload.py" />
     </list>
     <ignored path="auto_ssh.iws" />
@@ -31,21 +32,11 @@
       <file leaf-file-name="ssh_asyn_upload.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ssh_asyn_upload.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="94" column="29" selection-start-line="94" selection-start-column="0" selection-end-line="95" selection-end-column="0" />
+            <state relative-caret-position="298">
+              <caret line="81" column="39" selection-start-line="81" selection-start-column="39" selection-end-line="81" selection-end-column="39" />
               <folding>
                 <element signature="e#69#84#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="sftp_client.py" pinned="false" current-in-tab="false">
-        <entry file="file:///Library/Python/2.7/site-packages/paramiko/sftp_client.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2940">
-              <caret line="218" column="0" selection-start-line="218" selection-start-column="0" selection-end-line="218" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -865,16 +856,16 @@
     </entry>
     <entry file="file:///Library/Python/2.7/site-packages/paramiko/sftp_client.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2940">
-          <caret line="218" column="0" selection-start-line="218" selection-start-column="0" selection-end-line="218" selection-end-column="0" />
+        <state relative-caret-position="990">
+          <caret line="227" column="20" selection-start-line="227" selection-start-column="20" selection-end-line="227" selection-end-column="20" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ssh_asyn_upload.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="94" column="29" selection-start-line="94" selection-start-column="0" selection-end-line="95" selection-end-column="0" />
+        <state relative-caret-position="298">
+          <caret line="81" column="39" selection-start-line="81" selection-start-column="39" selection-end-line="81" selection-end-column="39" />
           <folding>
             <element signature="e#69#84#0" expanded="true" />
           </folding>

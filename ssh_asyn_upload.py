@@ -75,7 +75,7 @@ class FileHandler(object):
 
     def get_file_list(self, remote_dir):
         log.debug('now start get list')
-        files = self.sftp.listdir_iter(remote_dir)
+        files = self.sftp.listdir_attr(remote_dir)
         for f in files:
             filename = remote_dir + '/' + f.filename
             log.debug('now search %s' % filename)

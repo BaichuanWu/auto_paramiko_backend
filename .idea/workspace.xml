@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2d76864c-6cf8-4ebd-ad23-ba9ea2823063" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ssh_asyn_upload.py" afterPath="$PROJECT_DIR$/ssh_asyn_upload.py" />
     </list>
     <ignored path="auto_ssh.iws" />
@@ -31,8 +32,8 @@
       <file leaf-file-name="ssh_asyn_upload.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ssh_asyn_upload.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="253">
-              <caret line="92" column="24" selection-start-line="92" selection-start-column="24" selection-end-line="92" selection-end-column="24" />
+            <state relative-caret-position="283">
+              <caret line="81" column="39" selection-start-line="81" selection-start-column="39" selection-end-line="81" selection-end-column="39" />
               <folding>
                 <element signature="e#69#84#0" expanded="true" />
               </folding>
@@ -873,8 +874,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ssh_asyn_upload.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="92" column="24" selection-start-line="92" selection-start-column="24" selection-end-line="92" selection-end-column="24" />
+        <state relative-caret-position="283">
+          <caret line="81" column="39" selection-start-line="81" selection-start-column="39" selection-end-line="81" selection-end-column="39" />
           <folding>
             <element signature="e#69#84#0" expanded="true" />
           </folding>

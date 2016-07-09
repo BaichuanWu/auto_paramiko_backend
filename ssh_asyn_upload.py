@@ -45,7 +45,9 @@ class FileHandler(object):
         self.t.connect(username=self.username, password=self.passwd)
 
     @staticmethod
-    def delete_all(sftp_helper, filename):
+    def delete_all(sftp_helper, filename, remote_dir):
+        if filename == remote_dir:
+            return 0
         if not sftp_helper.sftp.listdir(filename):
             sftp_helper.sftp.rmdir(filename)
             log.info('remove - delete empty dir %s' % filename)
@@ -68,14 +70,14 @@ class FileHandler(object):
         log.info('remove %s successfully' % remote_file)
         remote_dir = os.path.dirname(remote_file)
         try:
-            FileHandler.delete_all(sftp_helper, remote_dir)
+            FileHandler.delete_all(sftp_helper, remote_dir, self.remote_dir)
         except Exception as e:
             pass
         self._queue.put(sftp_helper, timeout=1)
 
     def get_file_list(self, remote_dir):
         log.debug('now start get list')
-        files = self.sftp.listdir_attr(remote_dir)
+        files = self.sftp.listdir_iter(remote_dir)
         for f in files:
             filename = remote_dir + '/' + f.filename
             log.debug('now search %s' % filename)

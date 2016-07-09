@@ -39,10 +39,16 @@ class FileHandler(object):
         self.t = paramiko.Transport((self.host, self.port))
         self.connect()
         self.sftp = paramiko.SFTPClient.from_transport(self.t)
+        self.rt = paramiko.Transport((self.host, self.port))
+        self.rconnect()
+        self.rsftp = paramiko.SFTPClient.from_transport(self.rt)
         self._queue = Queue.Queue()
 
     def connect(self):
         self.t.connect(username=self.username, password=self.passwd)
+
+    def rconnect(self):
+        self.rt.connect(username=self.username, password=self.passwd)
 
     @staticmethod
     def delete_all(sftp_helper, filename, remote_dir):
@@ -75,9 +81,15 @@ class FileHandler(object):
             pass
         self._queue.put(sftp_helper, timeout=1)
 
-    def get_file_list(self, remote_dir):
+    def get_roor_dir(self):
+        return self.rsftp.listdir_iter(self.remote_dir)
+
+    def get_file_list(self, remote_dir, is_root=False):
         log.debug('now start get list')
-        files = self.sftp.listdir_attr(remote_dir)
+        if is_root:
+            files = self.get_roor_dir()
+        else:
+            files = self.sftp.listdir_attr(remote_dir)
         for f in files:
             filename = remote_dir + '/' + f.filename
             log.debug('now search %s' % filename)
@@ -89,11 +101,11 @@ class FileHandler(object):
 
     def downloader_async(self, remote_dir):
         threads = []
-        for i in range(10):
+        for i in range(20):
             log.debug('-------connecting %s' % i)
             self._queue.put(SftpHelper(self.host, self.username, self.passwd))
         log.debug('stop connect')
-        for i in self.get_file_list(remote_dir):
+        for i in self.get_file_list(remote_dir, is_root=True):
             log.debug('%%%%')
             try:
                 sftp_helper = self._queue.get(timeout=1)
@@ -105,7 +117,7 @@ class FileHandler(object):
             thr = threading.Thread(target=self.get_one, args=(sftp_helper, i))
             threads.append(thr)
             thr.start()
-            if len(threads) > 10:
+            if len(threads) > 40:
                 for t in threads:
                     t.join()
                 threads = []

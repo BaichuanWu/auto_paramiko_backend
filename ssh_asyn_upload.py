@@ -82,6 +82,7 @@ class FileHandler(object):
         self._queue.put(sftp_helper, timeout=1)
 
     def get_roor_dir(self):
+        log.debug('get root dir')
         return self.rsftp.listdir_iter(self.remote_dir)
 
     def get_file_list(self, remote_dir, is_root=False):

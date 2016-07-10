@@ -70,27 +70,31 @@ class FileHandler(object):
             except OSError:
                 pass
         log.debug('Start download %s -------' % remote_file)
-        sftp_helper.sftp.get(remote_file, local_file)
-        log.info('Download %s successfully' % local_file)
-        sftp_helper.sftp.remove(remote_file)
-        log.info('remove %s successfully' % remote_file)
-        remote_dir = os.path.dirname(remote_file)
         try:
-            FileHandler.delete_all(sftp_helper, remote_dir, self.remote_dir)
+            sftp_helper.sftp.get(remote_file, local_file)
+            log.info('Download %s successfully' % local_file)
+            sftp_helper.sftp.remove(remote_file)
+            log.info('remove %s successfully' % remote_file)
+            remote_dir = os.path.dirname(remote_file)
+            try:
+                FileHandler.delete_all(sftp_helper, remote_dir, self.remote_dir)
+            except Exception as e:
+                pass
         except Exception as e:
-            pass
+            log.warn(e)
         self._queue.put(sftp_helper, timeout=1)
 
-    def get_roor_dir(self):
-        log.debug('get root dir')
-        return self.rsftp.listdir_iter(self.remote_dir)
+    # def get_roor_dir(self):
+    #     log.debug('get root dir')
+    #     return self.rsftp.listdir_iter(self.remote_dir)
 
     def get_file_list(self, remote_dir, is_root=False):
         log.debug('now start get list')
-        if is_root:
-            files = self.get_roor_dir()
-        else:
-            files = self.sftp.listdir_attr(remote_dir)
+        # if is_root:
+        #     files = self.get_roor_dir()
+        # else:
+        #     files = self.sftp.listdir_attr(remote_dir)
+        files = self.sftp.listdir_attr(remote_dir)
         for f in files:
             filename = remote_dir + '/' + f.filename
             log.debug('now search %s' % filename)

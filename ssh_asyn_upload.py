@@ -56,7 +56,7 @@ class FileHandler(object):
             return 0
         if not sftp_helper.sftp.listdir(filename):
             sftp_helper.sftp.rmdir(filename)
-            log.info('remove - delete empty dir %s' % filename)
+            log.info('***remove - delete empty dir %s' % filename)
             filename = os.path.dirname(filename)
             FileHandler.delete_all(sftp_helper, filename)
 

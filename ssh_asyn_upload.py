@@ -75,11 +75,11 @@ class FileHandler(object):
             log.info('Download %s successfully' % local_file)
             sftp_helper.sftp.remove(remote_file)
             log.info('remove %s successfully' % remote_file)
-            remote_dir = os.path.dirname(remote_file)
-            try:
-                FileHandler.delete_all(sftp_helper, remote_dir, self.remote_dir)
-            except Exception as e:
-                pass
+            # remote_dir = os.path.dirname(remote_file)
+            # try:
+            #     FileHandler.delete_all(sftp_helper, remote_dir, self.remote_dir)
+            # except Exception as e:
+            #     pass
         except Exception as e:
             log.warn(e)
         self._queue.put(sftp_helper, timeout=1)

@@ -82,7 +82,10 @@ class FileHandler(object):
             #     pass
         except Exception as e:
             log.warn(e)
-        self._queue.put(sftp_helper, timeout=1)
+        try:
+            self._queue.put(sftp_helper, block=False)
+        except Exception:
+            pass
 
     # def get_roor_dir(self):
     #     log.debug('get root dir')
@@ -122,7 +125,7 @@ class FileHandler(object):
             thr = threading.Thread(target=self.get_one, args=(sftp_helper, i))
             threads.append(thr)
             thr.start()
-            if len(threads) > 40:
+            if len(threads) > 80:
                 for t in threads:
                     t.join()
                 threads = []

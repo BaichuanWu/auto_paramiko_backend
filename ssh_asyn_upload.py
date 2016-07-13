@@ -127,7 +127,7 @@ class FileHandler(object):
             thr.start()
             if len(threads) > 80:
                 for t in threads:
-                    t.join(300)
+                    t.join(timeout=100)
                 threads = []
         for t in threads:
             t.join()

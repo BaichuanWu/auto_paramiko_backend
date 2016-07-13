@@ -127,7 +127,7 @@ class FileHandler(object):
             thr.start()
             if len(threads) > 80:
                 for t in threads:
-                    t.join()
+                    t.join(300)
                 threads = []
         for t in threads:
             t.join()
@@ -137,7 +137,6 @@ class FileHandler(object):
             i.t.close()
         self.sftp.close()
         self.t.close()
-
 
 if __name__ == '__main__':
     host_a = sys.argv[1]

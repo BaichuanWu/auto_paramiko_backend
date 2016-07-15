@@ -39,16 +39,16 @@ class FileHandler(object):
         self.t = paramiko.Transport((self.host, self.port))
         self.connect()
         self.sftp = paramiko.SFTPClient.from_transport(self.t)
-        self.rt = paramiko.Transport((self.host, self.port))
-        self.rconnect()
-        self.rsftp = paramiko.SFTPClient.from_transport(self.rt)
+        # self.rt = paramiko.Transport((self.host, self.port))
+        # self.rconnect()
+        # self.rsftp = paramiko.SFTPClient.from_transport(self.rt)
         self._queue = Queue.Queue()
 
     def connect(self):
         self.t.connect(username=self.username, password=self.passwd)
 
-    def rconnect(self):
-        self.rt.connect(username=self.username, password=self.passwd)
+    # def rconnect(self):
+    #     self.rt.connect(username=self.username, password=self.passwd)
 
     @staticmethod
     def delete_all(sftp_helper, filename, remote_dir):
@@ -97,7 +97,13 @@ class FileHandler(object):
         #     files = self.get_roor_dir()
         # else:
         #     files = self.sftp.listdir_attr(remote_dir)
-        files = self.sftp.listdir_attr(remote_dir)
+        try:
+            files = self.sftp.listdir_attr(remote_dir)
+        except Exception:
+            log.warn('now re connect')
+            self.connect()
+            self.sftp = paramiko.SFTPClient.from_transport(self.t)
+            files = self.sftp.listdir_attr(remote_dir)
         for f in files:
             filename = remote_dir + '/' + f.filename
             log.debug('now search %s' % filename)

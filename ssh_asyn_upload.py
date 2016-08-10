@@ -101,6 +101,7 @@ class FileHandler(object):
             files = self.sftp.listdir_attr(remote_dir)
         except Exception:
             log.warn('now re connect')
+            self.t = paramiko.Transport((self.host, self.port))
             self.connect()
             self.sftp = paramiko.SFTPClient.from_transport(self.t)
             files = self.sftp.listdir_attr(remote_dir)

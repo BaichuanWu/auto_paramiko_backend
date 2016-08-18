@@ -116,7 +116,7 @@ class FileHandler(object):
 
     def downloader_async(self, remote_dir):
         threads = []
-        for i in range(20):
+        for i in range(30):
             log.debug('-------connecting %s' % i)
             self._queue.put(SftpHelper(self.host, self.username, self.passwd))
         log.debug('stop connect')
@@ -132,9 +132,9 @@ class FileHandler(object):
             thr = threading.Thread(target=self.get_one, args=(sftp_helper, i))
             threads.append(thr)
             thr.start()
-            if len(threads) > 80:
+            if len(threads) > 200:
                 for t in threads:
-                    t.join(timeout=100)
+                    t.join(timeout=10)
                 threads = []
         for t in threads:
             t.join()
